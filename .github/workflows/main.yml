@@ -1,0 +1,26 @@
+name: Deploy to Test Server
+
+on:
+  push:
+    branches:
+      - development
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: SSH Deploy to Test Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: 103.152.79.56
+          username: root
+          password: 6k>0?s9B<&n
+          port: 2245
+          script: |
+            cd /var/www/html/
+            git pull origin development
+            # Additional commands for deployment
